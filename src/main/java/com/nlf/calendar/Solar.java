@@ -36,7 +36,11 @@ public class Solar{
    * @param month 月，1到12
    * @param day 日，1到31
    */
-  public Solar(int year,int month,int day){
+  public Solar(int year,int month,int day) throws Exception{
+    if (year < 0 || month <= 0 || month > 12 || day < 0) throw new Exception();
+    if (day > SolarUtil.DAYS_OF_MONTH[month-1]){
+      if (!(month == 2 && day == 29 && SolarUtil.isLeapYear(year))) throw new Exception();
+    }
     calendar = Calendar.getInstance();
     calendar.set(year,month-1,day);
     this.year = year;
@@ -97,7 +101,7 @@ public class Solar{
    * @param day 日，1到31
    * @return 阳历
    */
-  public static Solar fromYmd(int year,int month,int day){
+  public static Solar fromYmd(int year,int month,int day)throws Exception{
     return new Solar(year,month,day);
   }
 

@@ -22,6 +22,11 @@ public class LunarTest {
         assertEquals("1987-01-02", date.getSolar().toString());
     }
 
+    @Test
+    public void givenNormalLunarDateWhenToStringThenSuccess(){
+        Lunar date = new Lunar(2000, 3, 29);
+        assertEquals("庚辰年叁月廿九", date.toString());
+    }
 
     @Test(expected = Exception.class)
     public void givenNegativeMonthWhenInitializeThenThrowException(){
@@ -41,7 +46,13 @@ public class LunarTest {
     }
 
     @Test
-    public void givenLunarDateWhenToFullStringThenSuccess(){
+    public void givenLunarDateWithoutFestivalWhenToFullStringThenSuccess(){
+        Lunar date = new Lunar(2018, 1, 19);
+        Assert.assertEquals("戊戌年正月十九 狗年 南方朱雀 氐土貉", date.toFullString());
+}
+
+    @Test
+    public void givenLunarDateWithFestivalWhenToFullStringThenSuccess(){
       Lunar date = new Lunar(2018, 2, 2);
       Assert.assertEquals("戊戌年贰月初二 狗年 (龙头节) 西方白虎 娄金狗", date.toFullString());
     }

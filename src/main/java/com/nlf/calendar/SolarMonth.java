@@ -108,7 +108,7 @@ public class SolarMonth{
    * 
    * @return 阳历日期列表
    */
-  public List<Solar> getDays(){
+  public List<Solar> getDays() throws Exception{
     List<Solar> l = new ArrayList<Solar>(31);
     Solar d = new Solar(year,month,1);
     l.add(d);
