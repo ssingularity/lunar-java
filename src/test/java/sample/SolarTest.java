@@ -51,7 +51,7 @@ public class SolarTest {
     };
 
     @org.junit.Test
-    public void test() {
+    public void givenDifferentDateWhenNextThenReturnNextDate() {
         for (Object[] test : data) {
             Solar date = new Solar(Integer.parseInt(test[2].toString()), Integer.parseInt(test[0].toString()), Integer.parseInt(test[1].toString()));
             assertEquals(test[3].toString(), date.next(1).toString());
