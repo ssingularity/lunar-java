@@ -4,6 +4,10 @@ import com.nlf.calendar.Lunar;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -14,6 +18,26 @@ public class LunarTest {
     public void givenLunarAndLunarSolarInSameYearWhenConvertToSolarThenEquals() {
       Lunar date = new Lunar(1986, 4, 21);
       assertEquals("1986-05-29", date.getSolar().toString());
+    }
+
+    @Test
+    public void givenLunarWhenLunarThenEquals() {
+        String dateString = "1986-04-21";
+        Date date=null;
+        try {
+            date = new SimpleDateFormat("yyyy-MM-dd").parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Lunar lunar = new Lunar(date);
+        assertEquals("1986-04-21", lunar.getSolar().toString());
+        lunar = Lunar.fromDate(date);
+        assertEquals("1986-04-21", lunar.getSolar().toString());
+        lunar = Lunar.fromYmd(1986,4,21);
+        assertEquals(1986,lunar.getYear());
+        assertEquals(4,lunar.getMonth());
+        assertEquals(21, lunar.getDay());
+        assertEquals("1986-05-29", lunar.getSolar().toString());
     }
 
     @Test
