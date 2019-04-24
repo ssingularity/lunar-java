@@ -5,6 +5,14 @@ import com.nlf.calendar.SolarHalfYear;
 import com.nlf.calendar.SolarMonth;
 import org.junit.Test;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import static com.nlf.calendar.SolarMonth.*;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -58,5 +66,65 @@ public class MonthTest {
     }
   }
 
+  @Test
+  public void givenNormalDateWhenSolarMonthThenSuccess(){
+    String dateString = "2002-07-29";
+    Date date=null;
+    try {
+      date = new SimpleDateFormat("yyyy-MM-dd").parse(dateString);
+    } catch (ParseException e) {
+      e.printStackTrace();
+    }
+    SolarMonth month = new SolarMonth(date);
+    assertEquals("2002年7月", month.toFullString());
+  }
 
+  @Test
+  public void givenNormalDateWhenFromDateThenSuccess(){
+    String dateString = "2002-07-29";
+    Date date=null;
+    try {
+      date = new SimpleDateFormat("yyyy-MM-dd").parse(dateString);
+    } catch (ParseException e) {
+      e.printStackTrace();
+    }
+    SolarMonth month = fromDate(date);
+    assertEquals("2002-7", month.toString());
+  }
+
+  @Test
+  public void givenNormalDateWhenFromCalendarThenSuccess(){
+    String dateString = "2002-07-29";
+    Date date=null;
+    try {
+      date = new SimpleDateFormat("yyyy-MM-dd").parse(dateString);
+    } catch (ParseException e) {
+      e.printStackTrace();
+    }
+    Calendar calendar = Calendar.getInstance();
+    calendar.setTime(date);
+    SolarMonth month = fromCalendar(calendar);
+    assertEquals("2002-7", month.toString());
+  }
+
+  @Test
+  public void givenNormalDateWhenFromYmThenSuccess(){
+    SolarMonth month = fromYm(2002,7);
+    assertEquals(2002,month.getYear());
+    assertEquals(7,month.getMonth());
+  }
+
+  @Test
+  public void givenNormalDateWhenGetDaysThenSuccess(){
+    SolarMonth month = fromYm(2002,7);
+    List<Solar> l = new ArrayList<Solar>(31);
+    try
+    {
+      l = month.getDays();
+    }catch(Exception e)
+    {
+      e.printStackTrace();
+    }
+    assertEquals("2002-07-01",l.get(0).toString());
+  }
 }
